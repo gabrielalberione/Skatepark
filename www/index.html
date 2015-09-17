@@ -33,17 +33,46 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div id="cabecera">
+	        <div class="ancho_maximo row" style="margin: auto;">
+                <div class="col-xs-2">
+                </div>            
+                <div class="col-xs-10">
+                    <img src="img/logo.png" class="img-responsive" style="max-height:340px;float: right;">
+                </div>
+	        </div>
+        </div>
+		<div id="contenido">
+        	<div class="ancho_maximo row" style="margin: auto;">
+                <div id="skater" class="col-xs-5"><img src="img/skate.png" class="img-responsive"></div>
+                <div class="col-xs-12" id="titulo">
+                    <p>¿Cómo queres que se llame tu skatepark?</p>
+                </div>
+                <div class="col-xs-12" id="opciones">
+                    <div class="opcion">
+                        <p>Opción 1</p>
+                    </div>
+                    <div class="opcion">
+                        <p>Opción 2</p>
+                    </div>
+                    <div class="opcion">
+                        <p>Opción 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pie">
+	        <div id="rampa"><img src="img/rampa.png"  style="height: 140px;"></div>
+        	<div id="border_pico_pie"></div>
+            <div style="width: 100%;">
+	        	<img src="img/pie.png">
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
     </body>
 </html>

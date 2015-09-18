@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var db = window.openDatabase("skatepark", "1.0", "Skatepark DB", 1000000);
 var app = {
     // Application Constructor
     initialize: function() {
@@ -47,5 +48,30 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+
+// Nueva Votacion
+//
+function nuevaVotacion(opcion) {
+	 tx.executeSql('CREATE TABLE IF NOT EXISTS VOTACION (id unique, opcion_nro)');
+	 tx.executeSql('INSERT INTO DEMO (id INTEGER PRIMARY KEY, data) VALUES (1, '+opcion+')');
+	 db.transaction(function(tx) {
+		tx.executeSql('INSERT INTO DEMO (data) VALUES ('+opcion+')');	
+	}, errorCB,successCB);
+}
+
+// Transaction error callback
+//
+function errorCB(tx, err) {
+	alert("Error processing SQL: "+err);
+}
+
+// Transaction success callback
+//
+function successCB() {
+	alert("success!");
+}
+
+
 
 app.initialize();

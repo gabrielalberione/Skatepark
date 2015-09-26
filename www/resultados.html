@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jAlert-v3.css">
+         
+        <title>Skatepark</title>
+    </head>
+    <body>
+        <div id="cabecera">
+	        <div class="ancho_maximo row" style="margin: auto;">
+                <div class="col-xs-2">
+                </div>            
+                <div class="col-xs-10">
+                    <img src="img/logo.png" class="img-responsive" style="max-height: 270px;float: right; margin-right: 30px;">
+                </div>
+	        </div>
+        </div>
+		<div id="contenido">
+        	<div class="ancho_maximo row" style="margin: auto;">
+                <div id="skater" class="col-xs-5"><img src="img/skate.png" class="img-responsive"></div>
+                <div class="col-xs-12" id="titulo">
+                    <p>RESULTADOS</p>
+                </div>
+                <div class="col-xs-12" id="opciones">
+	               	<div class="col-xs-6">
+                        <div>
+                            <p>Xtreme Park</p>
+                            <p><span id="resultados_opcion_1"></span></p>
+                        </div>
+                    </div>
+                   	<div class="col-xs-6">
+                        <div>
+                            <p>Killa Park</p>
+                            <p><span id="resultados_opcion_2"></span></p>
+                        </div>
+                    </div>
+                   	<div class="col-xs-6">
+                        <div>
+                            <p>Fly Park</p>
+                            <p><span id="resultados_opcion_3"></span></p>
+                        </div>
+                    </div>
+                   	<div class="col-xs-6">
+                        <div>
+                            <p>Cheispy 420</p>
+                            <p><span id="resultados_opcion_4"></span></p>
+                        </div>
+                    </div>
+                   	<div class="col-xs-6">
+                        <div>
+                            <p>Ride or Die</p>
+                            <p><span id="resultados_opcion_5"></span></p>
+                        </div>
+                    </div>
+                   	<div class="col-xs-6">
+                        <div>
+                            <p style="font-size: 21px;">Fernando anda en Sk8</p>
+                            <p><span id="resultados_opcion_6"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="padding: 0px;">
+                	<button type="button" class="btn btn-success" onClick="volver()" style="width: 100%;margin-top: 15px;font-size: 20px;
+padding: 20px;">Volver</button>
+                </div>
+                <div class="col-xs-12" style="margin-top: 200px;">
+                	<button type="button" class="btn btn-danger" onClick="borrar_datos()" style="width: 100%;margin-top: 15px;font-size: 20px;
+padding: 20px;">Borrar Datos</button>
+                </div>                
+            </div>
+        </div>
+        <div id="pie">
+	        <div id="rampa"><img src="img/rampa.png"  style="height: 140px;"></div>
+        	<div id="border_pico_pie"></div>
+            <div style="width: 100%;">
+	        	<img src="img/pie.png" style="margin:auto;">
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jAlert-v3.min.js"></script>                
+        <script type="text/javascript" src="js/jAlert-functions.min.js"></script>
+        
+        <script type="text/javascript">
+			$(document).ready(function() {
+				consultarVotos();
+			});
+			
+			function volver(){
+				window.open("index.html","_self");
+			}
+			
+			function consultarVotos(){
+				db.transaction(function(tx) {
+					tx.executeSql("SELECT COUNT(opcion_nro) as 'cantidad', opcion_nro FROM VOTACION GROUP BY opcion_nro ORDER BY opcion_nro",[],getVotos,errorCB);
+				}, errorCB,successSinAlert);
+			}
+			
+			function borrar_datos(){
+				$.jAlert({'title':'Skatepark', 'content':'¿Seguro que desea BORRAR todos los votos?', 
+				'btns': [
+					{'text':'SI', 'theme':'green', 'onClick': function(e, btn){
+						limpiar_datos();
+					}},
+					{'text':'NO', 'theme':'red'}
+				]});
+			}
+			
+			function limpiar_datos(){
+				db.transaction(function(tx) {
+					tx.executeSql('DROP TABLE IF EXISTS VOTACION');
+				}, errorCB,successSinAlert);
+				$.jAlert({'title':'Skatepark', 'content':'Se ha iniciado la votación desde cero!','btns': [
+						{'text':'Ver Resultados', 'theme':'blue', 'onClick': function(e, btn){
+						   window.open("index.html","_self");
+						}}
+					]
+				});
+			}
+									
+			function getVotos(tx,results){
+				var cant_opcion_1 = 0;
+				var cant_opcion_2 = 0; 
+				var cant_opcion_3 = 0;
+				var cant_opcion_4 = 0;
+				var cant_opcion_5 = 0;
+				var cant_opcion_6 = 0;
+				for(var i=0; i<results.rows.length; i++) {
+					if(results.rows.item(i).opcion_nro=="1"){						
+						cant_opcion_1 = results.rows.item(i).cantidad;
+					}
+					if(results.rows.item(i).opcion_nro=="2"){			
+						cant_opcion_2 = results.rows.item(i).cantidad;
+					}
+					if(results.rows.item(i).opcion_nro=="3"){			
+						cant_opcion_3 = results.rows.item(i).cantidad;
+					}
+					if(results.rows.item(i).opcion_nro=="4"){			
+						cant_opcion_4 = results.rows.item(i).cantidad;
+					}
+					if(results.rows.item(i).opcion_nro=="5"){			
+						cant_opcion_5 = results.rows.item(i).cantidad;
+					}
+					if(results.rows.item(i).opcion_nro=="6"){			
+						cant_opcion_6 = results.rows.item(i).cantidad;
+					}															
+				}
+				
+				var cant_total = cant_opcion_1 + cant_opcion_2 + cant_opcion_3 + cant_opcion_4 + cant_opcion_5 + cant_opcion_6;	
+				
+				if(cant_opcion_1 > 0){
+					var porc_1 = cant_opcion_1 * 100 / cant_total;
+				}else{
+					var porc_1 = 0;
+				}
+				
+				if(cant_opcion_2 > 0){
+					var porc_2 = cant_opcion_2 * 100 / cant_total;
+				}else{
+					var porc_2 = 0;
+				}
+				
+				if(cant_opcion_3 > 0){
+					var porc_3 = cant_opcion_3 * 100 / cant_total;
+				}else{
+					var porc_3 = 0;
+				}	
+				
+				if(cant_opcion_4 > 0){
+					var porc_4 = cant_opcion_4 * 100 / cant_total;
+				}else{
+					var porc_4 = 0;
+				}	
+				
+				if(cant_opcion_5 > 0){
+					var porc_5 = cant_opcion_5 * 100 / cant_total;
+				}else{
+					var porc_5 = 0;
+				}	
+				
+				if(cant_opcion_6 > 0){
+					var porc_6 = cant_opcion_6 * 100 / cant_total;
+				}else{
+					var porc_6 = 0;
+				}													
+														
+				$("#resultados_opcion_1").html(parseFloat(porc_1).toFixed(2)+"%");
+				$("#resultados_opcion_2").html(parseFloat(porc_2).toFixed(2)+"%");
+				$("#resultados_opcion_3").html(parseFloat(porc_3).toFixed(2)+"%");
+				$("#resultados_opcion_4").html(parseFloat(porc_4).toFixed(2)+"%");
+				$("#resultados_opcion_5").html(parseFloat(porc_5).toFixed(2)+"%");
+				$("#resultados_opcion_6").html(parseFloat(porc_6).toFixed(2)+"%");				
+		}	
+		</script>
+    </body>
+</html>

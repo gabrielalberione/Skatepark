@@ -120,7 +120,7 @@ h1 {
 #contenido{
 	height: 100%;
 	background-color: #8cc7dd;	
-	padding-top: 60px;
+	padding-top: 20px;
 	padding-left: 50px;
 	padding-right: 50px;	
 	padding-bottom: 350px;
@@ -139,7 +139,7 @@ h1 {
 
 #skater{
 	position: absolute;
-	margin-top: -280px;	
+	margin-top: -225px;	
 }
 
 #titulo{
@@ -162,15 +162,16 @@ h1 {
 .opcion{
 	background-color:#f0d444;
 	border-bottom: 8px solid #d1b93b;
-	margin: 25px;	
+	margin: 5px;	
 }
 
 .opcion p{
 	color: #000;
-	font-size: 32px;
-	padding: 10px;
+	font-size: 25px;
+	padding: 30px;
 	font-weight: bold;
 	margin: 0px;
+	height: 90px;
 }
 
 /* PIE */
@@ -196,5 +197,20 @@ h1 {
 	float: right;
 	margin-top: -139px;
 	margin-right: -15px;
+}
+
+/* opciones */
+
+#opciones{
+	color: #fff;
+	font-size: 25px;
+	text-align: center;
+	padding: 20px 0px;
+}
+
+#opciones span{
+	padding: 0px 9px;
+	border-bottom:dashed 1px #fff;
+	color: #ECEB0A;
 }
 

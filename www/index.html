@@ -29,12 +29,13 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta charset="utf-8" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
-         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jAlert-v3.css">
         <title>Skatepark</title>
     </head>
     <body>
@@ -54,14 +55,35 @@
                     <p>¿Cómo queres que se llame tu skatepark?</p>
                 </div>
                 <div class="col-xs-12" id="opciones">
-                    <div onClick="nuevaVotacion(1)" class="opcion">
-                        <p>Opción 1</p>
+	            	<div class="col-xs-6">
+                        <div onClick="nuevaVotacion(1)" class="opcion">
+                            <p>Xtreme Park</p>
+                        </div>
+	                </div>
+	            	<div class="col-xs-6">
+                        <div onClick="nuevaVotacion(2)" class="opcion">
+                            <p>Killa Park</p>
+                        </div>
                     </div>
-                    <div onClick="nuevaVotacion(2)" class="opcion">
-                        <p>Opción 2</p>
+	            	<div class="col-xs-6">
+                        <div onClick="nuevaVotacion(3)" class="opcion">
+                            <p>Fly park</p>
+                        </div>
+	                </div>
+	            	<div class="col-xs-6">
+                        <div onClick="nuevaVotacion(4)" class="opcion">
+                            <p>Cheispy 420</p>
+                        </div>
                     </div>
-                    <div onClick="nuevaVotacion(3)" class="opcion">
-                        <p>Opción 3</p>
+	            	<div class="col-xs-6">
+                        <div onClick="nuevaVotacion(5)" class="opcion">
+                            <p>Ride or Die</p>
+                        </div>
+	                </div>
+	            	<div class="col-xs-6">
+                        <div onClick="nuevaVotacion(6)" class="opcion">
+                            <p style="padding: 10px;">Fernando anda en Sk8</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,5 +98,7 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jAlert-v3.min.js"></script>                
+        <script type="text/javascript" src="js/jAlert-functions.min.js"></script>
     </body>
 </html>
